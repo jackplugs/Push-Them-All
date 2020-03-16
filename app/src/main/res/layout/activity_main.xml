@@ -7,12 +7,110 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/day_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="Day 1"
+        android:textSize="50sp"
+        android:textColor="@color/Black"
+        android:layout_margin="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/number_push_ups_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="100"
+        android:textSize="70sp"
+        android:textColor="@color/Black"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/day_number" />
+
+    <TextView
+        android:id="@+id/label_push_ups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="push-ups left"
+        android:textSize="40sp"
+        android:textColor="@color/Black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/number_push_ups_today" />
+
+    <Button
+        android:id="@+id/plus_one"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="+ 1"
+        android:textSize="20sp"
+        style="@style/MyButton"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_push_ups" />
+
+    <Button
+        android:id="@+id/minus_one"
+        android:text="- 1"
+        style="@style/MyButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/minus_ten"
+        app:layout_constraintTop_toBottomOf="@id/plus_one" />
+
+    <Button
+        android:id="@+id/minus_ten"
+        android:text="- 10"
+        style="@style/MyButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/minus_one"
+        app:layout_constraintEnd_toStartOf="@id/minus_twenty"
+        app:layout_constraintTop_toBottomOf="@id/plus_one" />
+
+    <Button
+        android:id="@+id/minus_twenty"
+        android:text="- 20"
+        style="@style/MyButton"
+        android:layout_margin="@dimen/margin_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/minus_ten"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/plus_one" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/DarkBlue"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:paddingStart="20dp"
+        android:textColor="@color/White"
+        android:text="Total :"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/number_push_ups_total"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:paddingEnd="20dp"
+        android:textColor="@color/White"
+        tools:text="1782"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

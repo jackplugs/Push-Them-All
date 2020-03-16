@@ -8,4 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyButton" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/colorAccent</item>
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textSize">25sp</item>
+
+        <!-- We need to define the margins this way to override margin top -->
+        <item name="android:layout_marginTop">@dimen/margin_button</item>
+        <item name="android:layout_marginBottom">@dimen/margin_button</item>
+        <item name="android:layout_marginStart">@dimen/margin_button</item>
+        <item name="android:layout_marginEnd">@dimen/margin_button</item>
+    </style>
+
 </resources>
