@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/number_push_ups_today" />
 
     <Button
-        android:id="@+id/plus_one"
+        android:id="@+id/cancel_one"
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:text="+ 1"
@@ -54,32 +54,32 @@
         app:layout_constraintTop_toBottomOf="@id/label_push_ups" />
 
     <Button
-        android:id="@+id/minus_one"
+        android:id="@+id/add_one"
         android:text="- 1"
         style="@style/MyButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/minus_ten"
-        app:layout_constraintTop_toBottomOf="@id/plus_one" />
+        app:layout_constraintEnd_toStartOf="@id/add_ten"
+        app:layout_constraintTop_toBottomOf="@id/cancel_one" />
 
     <Button
-        android:id="@+id/minus_ten"
+        android:id="@+id/add_ten"
         android:text="- 10"
         style="@style/MyButton"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/minus_one"
-        app:layout_constraintEnd_toStartOf="@id/minus_twenty"
-        app:layout_constraintTop_toBottomOf="@id/plus_one" />
+        app:layout_constraintStart_toEndOf="@id/add_one"
+        app:layout_constraintEnd_toStartOf="@id/add_twenty"
+        app:layout_constraintTop_toBottomOf="@id/cancel_one" />
 
     <Button
-        android:id="@+id/minus_twenty"
+        android:id="@+id/add_twenty"
         android:text="- 20"
         style="@style/MyButton"
         android:layout_margin="@dimen/margin_button"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/minus_ten"
+        app:layout_constraintStart_toEndOf="@id/add_ten"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/plus_one" />
+        app:layout_constraintTop_toBottomOf="@id/cancel_one" />
 
     <View
         android:layout_width="match_parent"

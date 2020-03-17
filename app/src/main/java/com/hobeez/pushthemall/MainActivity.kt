@@ -16,61 +16,44 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("pushthemall_sharedpref", Context.MODE_PRIVATE)
 
-        // TODO : Do this every new day in MyApplication
-        /*sharedPreferences
+        sharedPreferences
             .edit()
-            .putInt("pushups_today", 100)
-            .apply()*/
+            .putInt("pushups_total", sharedPreferences.getInt("pushups_totak",0))
+            .apply()
 
         initPushups()
 
-        plus_one.setOnClickListener {
-            val newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) - 1
-            val newPushUpsToday = sharedPreferences.getInt("pushups_today",100) + 1
-            sharedPreferences
-                .edit()
-                .putInt("pushups_today", newPushUpsToday)
-                .putInt("pushups_total", newPushUpsTotal)
-                .apply()
-            number_push_ups_today.text = newPushUpsToday.toString()
-            number_push_ups_total.text = newPushUpsTotal.toString()
+        cancel_one.setOnClickListener {
+            updatePushUpsCount(-1)
         }
 
-        minus_one.setOnClickListener {
-            val newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + 1
-            val newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - 1
-            sharedPreferences
-                .edit()
-                .putInt("pushups_today", newPushUpsToday)
-                .putInt("pushups_total", newPushUpsTotal)
-                .apply()
-            number_push_ups_today.text = newPushUpsToday.toString()
-            number_push_ups_total.text = newPushUpsTotal.toString()
+        add_one.setOnClickListener {
+            updatePushUpsCount(1)
         }
 
-        minus_ten.setOnClickListener {
-            val newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + 10
-            val newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - 10
-            sharedPreferences
-                .edit()
-                .putInt("pushups_today", newPushUpsToday)
-                .putInt("pushups_total", newPushUpsTotal)
-                .apply()
-            number_push_ups_today.text = newPushUpsToday.toString()
-            number_push_ups_total.text = newPushUpsTotal.toString()
+        add_ten.setOnClickListener {
+            updatePushUpsCount(10)
         }
 
-        minus_twenty.setOnClickListener {
-            val newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + 20
-            val newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - 20
-            sharedPreferences
-                .edit()
-                .putInt("pushups_today", newPushUpsToday)
-                .putInt("pushups_total", newPushUpsTotal)
-                .apply()
-            number_push_ups_today.text = newPushUpsToday.toString()
-            number_push_ups_total.text = newPushUpsTotal.toString()
+        add_twenty.setOnClickListener {
+            updatePushUpsCount(20)
         }
+    }
+
+    private fun updatePushUpsCount(numberOfPushups: Int) {
+        var newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - numberOfPushups
+        var newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + numberOfPushups
+        newPushUpsToday = newPushUpsToday.let { if(it < 0) 0 else it }
+        newPushUpsTotal = newPushUpsTotal.let { if(it < 0) 0 else it }
+
+        sharedPreferences
+            .edit()
+            .putInt("pushups_today", newPushUpsToday)
+            .putInt("pushups_total", newPushUpsTotal)
+            .apply()
+
+        number_push_ups_today.text = newPushUpsToday.toString()
+        number_push_ups_total.text = newPushUpsTotal.toString()
     }
 
     private fun initPushups() {
