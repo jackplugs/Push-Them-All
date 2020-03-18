@@ -4,7 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,13 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sharedPreferences = getSharedPreferences("pushthemall_sharedpref", Context.MODE_PRIVATE)
-
-        sharedPreferences
-            .edit()
-            .putInt("pushups_total", sharedPreferences.getInt("pushups_totak",0))
-            .apply()
-
-        initPushups()
 
         cancel_one.setOnClickListener {
             updatePushUpsCount(-1)
@@ -40,24 +37,61 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updatePushUpsCount(numberOfPushups: Int) {
-        var newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - numberOfPushups
-        var newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + numberOfPushups
-        newPushUpsToday = newPushUpsToday.let { if(it < 0) 0 else it }
-        newPushUpsTotal = newPushUpsTotal.let { if(it < 0) 0 else it }
-
-        sharedPreferences
-            .edit()
-            .putInt("pushups_today", newPushUpsToday)
-            .putInt("pushups_total", newPushUpsTotal)
-            .apply()
-
-        number_push_ups_today.text = newPushUpsToday.toString()
-        number_push_ups_total.text = newPushUpsTotal.toString()
+    override fun onResume() {
+        super.onResume()
+        initSharedPreferencesVariables()
+        initTextviews()
     }
 
-    private fun initPushups() {
+    private fun initSharedPreferencesVariables() {
+        // If day has changed
+        Log.d("First day : ", sharedPreferences.getLong("first_day", 0).toString())
+        Log.d("get Day Number : ", getDayNumber(sharedPreferences).toString())
+        Log.d("Saved Day Number : ", sharedPreferences.getInt("saved_day_number", -1).toString())
+
+        getDayNumber(sharedPreferences).let { day ->
+            if (day != sharedPreferences.getInt("saved_day_number", -1)) {
+                sharedPreferences
+                    .edit()
+                    .putInt("saved_day_number", day)
+                    .apply()
+
+                sharedPreferences
+                    .edit()
+                    .putInt("pushups_today", 100)
+                    .apply()
+            }
+        }
+    }
+
+    private fun getDayNumber(sharedPreferences: SharedPreferences): Int {
+        val today = Date()
+        val diffMilliSeconds =  today.time - sharedPreferences.getLong("first_day",today.time)
+        return TimeUnit.DAYS.convert(diffMilliSeconds, TimeUnit.MILLISECONDS).toInt() + 1
+    }
+
+    private fun updatePushUpsCount(pushupsDone: Int) {
+        val newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - pushupsDone
+
+        if ( (pushupsDone > 0 && newPushUpsToday >= 0) || (pushupsDone < 0 && newPushUpsToday <= 100) ) {
+            val newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + pushupsDone
+            sharedPreferences
+                .edit()
+                .putInt("pushups_today", newPushUpsToday)
+                .putInt("pushups_total", newPushUpsTotal)
+                .apply()
+
+            number_push_ups_today.text = newPushUpsToday.toString()
+            number_push_ups_total.text = newPushUpsTotal.toString()
+        }
+    }
+
+    private fun initTextviews() {
+        day_number.text = getString(R.string.day, sharedPreferences.getInt("saved_day_number", 0))
         number_push_ups_today.text = sharedPreferences.getInt("pushups_today",100).toString()
         number_push_ups_total.text = sharedPreferences.getInt("pushups_total",0).toString()
+
+        val date = Date(sharedPreferences.getLong("first_day",0))
+        start_date_textview.text = getString(R.string.start_date, SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(date))
     }
 }

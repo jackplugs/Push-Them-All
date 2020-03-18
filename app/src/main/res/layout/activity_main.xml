@@ -4,19 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/day_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Day 1"
+        tools:text="Day 1"
         android:textSize="50sp"
         android:textColor="@color/Black"
         android:layout_margin="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/start_date_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:gravity="center"
+        android:textColor="@color/Gray"
+        app:layout_constraintTop_toBottomOf="@id/day_number"
+        android:textSize="30sp"
+        tools:text="Start date : 2 Mar, 2020" />
 
     <TextView
         android:id="@+id/number_push_ups_today"
@@ -28,7 +40,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/day_number" />
+        app:layout_constraintTop_toBottomOf="@id/start_date_textview" />
 
     <TextView
         android:id="@+id/label_push_ups"
