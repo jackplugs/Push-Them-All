@@ -21,9 +21,18 @@ class MyApplication : Application() {
 
         // This code is only triggered the first time we open the app
         if (sharedPreferences.getLong("first_day", 0L) == 0L) {
+
+            val todayDateMidnight: Date =
+                GregorianCalendar().apply {
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                }
+                .time
+
             sharedPreferences
                 .edit()
-                .putLong("first_day", Date().time)
+                .putLong("first_day", todayDateMidnight.time)
                 .apply()
         }
     }
