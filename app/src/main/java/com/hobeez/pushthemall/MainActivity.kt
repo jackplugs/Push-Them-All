@@ -35,6 +35,18 @@ class MainActivity : AppCompatActivity() {
         add_twenty.setOnClickListener {
             updatePushUpsCount(20)
         }
+
+        // In case I forgot to add my pompas
+        //resetTotalCounterToFitNumberOfdays()
+    }
+
+    private fun resetTotalCounterToFitNumberOfdays() {
+        // Override total counter
+        sharedPreferences
+            .edit()
+            .putInt("pushups_today", 100)
+            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ))
+            .apply()
     }
 
     override fun onResume() {

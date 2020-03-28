@@ -35,5 +35,6 @@ class MyApplication : Application() {
                 .putLong("first_day", todayDateMidnight.time)
                 .apply()
         }
+
     }
 }
