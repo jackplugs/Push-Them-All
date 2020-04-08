@@ -51,11 +51,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        initSharedPreferencesVariables()
+        updateSharedPreferencesVariables()
         initTextviews()
     }
 
-    private fun initSharedPreferencesVariables() {
+    private fun updateSharedPreferencesVariables() {
         // If day has changed
         Log.d("First day : ", sharedPreferences.getLong("first_day", 0).toString())
         Log.d("get Day Number : ", getDayNumber(sharedPreferences).toString())
