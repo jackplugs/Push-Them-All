@@ -42,10 +42,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetTotalCounterToFitNumberOfdays() {
         // Override total counter
+        val numberOfAdditionalPushups = 100 // Because I add push-ups penalty every time I don't repect the 100 pushups
         sharedPreferences
             .edit()
+            .putInt("init", 0)
             .putInt("pushups_today", 100)
-            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ))
+            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ) + numberOfAdditionalPushups)
             .apply()
     }
 
