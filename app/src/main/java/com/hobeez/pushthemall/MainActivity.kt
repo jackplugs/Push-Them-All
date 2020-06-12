@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
+    private val NUMBER_PUSH_UP_PER_DAY: Int = 250
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +48,9 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences
             .edit()
             .putInt("init", 0)
-            .putInt("pushups_today", 100)
-            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ) + numberOfAdditionalPushups)
+            .putInt("pushups_today", 250)
+//            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ) + numberOfAdditionalPushups)
+            .putInt("pushups_total", 10000-1650) // 9 jours de 250 pompes + 3 jours de 100 pompes
             .apply()
     }
 
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         updateSharedPreferencesVariables()
         initTextviews()
+        updateBackground()
     }
 
     private fun updateSharedPreferencesVariables() {
@@ -72,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
                 sharedPreferences
                     .edit()
-                    .putInt("pushups_today", 100)
+                    .putInt("pushups_today", NUMBER_PUSH_UP_PER_DAY)
                     .apply()
             }
         }
@@ -85,9 +89,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updatePushUpsCount(pushupsDone: Int) {
-        val newPushUpsToday = sharedPreferences.getInt("pushups_today",100) - pushupsDone
+        val newPushUpsToday = sharedPreferences.getInt("pushups_today",NUMBER_PUSH_UP_PER_DAY) - pushupsDone
 
-        if ( (pushupsDone > 0 && newPushUpsToday >= 0) || (pushupsDone < 0 && newPushUpsToday <= 100) ) {
+        if ( (pushupsDone > 0 && newPushUpsToday >= 0) || (pushupsDone < 0 && newPushUpsToday <= NUMBER_PUSH_UP_PER_DAY) ) {
             val newPushUpsTotal = sharedPreferences.getInt("pushups_total",0) + pushupsDone
             sharedPreferences
                 .edit()
@@ -98,11 +102,22 @@ class MainActivity : AppCompatActivity() {
             number_push_ups_today.text = newPushUpsToday.toString()
             number_push_ups_total.text = newPushUpsTotal.toString()
         }
+        updateBackground()
+    }
+
+    private fun updateBackground() {
+        val test = number_push_ups_total.text.toString().toInt()-8350
+        val test2 = test%150
+        if((number_push_ups_total.text.toString().toInt()-8350)%250 == 0) {
+            main_view.setBackgroundColor(ContextCompat.getColor(this, R.color.my_green))
+        } else {
+            main_view.setBackgroundColor(ContextCompat.getColor(this, R.color.my_red))
+        }
     }
 
     private fun initTextviews() {
         day_number.text = getString(R.string.day, sharedPreferences.getInt("saved_day_number", 0))
-        number_push_ups_today.text = sharedPreferences.getInt("pushups_today",100).toString()
+        number_push_ups_today.text = sharedPreferences.getInt("pushups_today",NUMBER_PUSH_UP_PER_DAY).toString()
         number_push_ups_total.text = sharedPreferences.getInt("pushups_total",0).toString()
 
         val date = Date(sharedPreferences.getLong("first_day",0))
