@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             .putInt("init", 0)
             .putInt("pushups_today", 250)
 //            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ) + numberOfAdditionalPushups)
-            .putInt("pushups_total", 10000-1650) // 9 jours de 250 pompes + 3 jours de 100 pompes
+            .putInt("pushups_total", 10000-1800) // 6 jours de 250 pompes + 3 jours de 100 pompes
             .apply()
     }
 
@@ -106,9 +106,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateBackground() {
-        val test = number_push_ups_total.text.toString().toInt()-8350
-        val test2 = test%150
-        if((number_push_ups_total.text.toString().toInt()-8350)%250 == 0) {
+        if((number_push_ups_total.text.toString().toInt()-8200)%250 == 0) {
             main_view.setBackgroundColor(ContextCompat.getColor(this, R.color.my_green))
         } else {
             main_view.setBackgroundColor(ContextCompat.getColor(this, R.color.my_red))
