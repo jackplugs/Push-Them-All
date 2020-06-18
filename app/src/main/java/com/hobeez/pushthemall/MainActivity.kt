@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             .putInt("init", 0)
             .putInt("pushups_today", 250)
 //            .putInt("pushups_total", 100 * ( getDayNumber(sharedPreferences) - 1 ) + numberOfAdditionalPushups)
-            .putInt("pushups_total", 10000-1800) // 6 jours de 250 pompes + 3 jours de 100 pompes
+            .putInt("pushups_total", 10000-1050) // 3 jours de 250 pompes + 3 jours de 100 pompes
             .apply()
     }
 
